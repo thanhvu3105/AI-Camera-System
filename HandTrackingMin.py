@@ -41,16 +41,16 @@ while True:
                 mp_drawing_styles.get_default_hand_connections_style()
                 )
             #print out correspoding 
-        for id,lm in enumerate(handLms.landmark):
-            #each ID corresponding to landmark(x,y,z)
-            # print(id,lm)
-            #row,col,channels
-            h,w,c = img.shape 
-            #position of center of landmark(x,y,z)
-            cx, cy = int(lm.x*w),int(lm.y*h)
-            print(id,cx,cy)
-            if id == 4:
-                cv2.circle(img, (cx,cy), 25, (0,255,0), cv2.FILLED)
+        # for id,lm in enumerate(handLms.landmark):
+        #     #each ID corresponding to landmark(x,y,z)
+        #     # print(id,lm)
+        #     #row,col,channels
+        #     h,w,c = img.shape 
+        #     #position of center of landmark(x,y,z)
+        #     cx, cy = int(lm.x*w),int(lm.y*h)
+        #     print(id,cx,cy)
+        #     if id == 0:
+        #         cv2.circle(img, (cx,cy), 20, (0,255,0), cv2.FILLED)
         #extract info of each hand
 
     cv2.imshow("Image",img)
