@@ -15,9 +15,9 @@ class Camera():
     def closeCamera(self):
         self.camera.release()
 
-class handDetector():
+class handDetector(Camera):
     ### Constructor ###
-    def __init__(self,mode=False,maxHands=2,modelComplex = 1,detectionCon=0.75,trackCon=0.75):
+    def __init__(self,index,mode=False,maxHands=2,modelComplex = 1,detectionCon=0.75,trackCon=0.75):
         #MP Hands API Configuration
         self.mode=False
         self.maxHands= maxHands
@@ -35,12 +35,12 @@ class handDetector():
         self.pTime = 0.0
         self.nTime = 0.0
 
-        
+        super().__init__(index)
 
     #TODO: parameters is a openCV camera
     #it only draws when we ask it to draw
-    def FindLandMark(self,img):
-        # img = self.CaptureVideo()
+    def FindLandMark(self):
+        img = super().CaptureVideo()
         results = self.hands.process(img)
         if(results.multi_hand_landmarks):
             for handLms in results.multi_hand_landmarks:
@@ -53,6 +53,7 @@ class handDetector():
                 )
         return img
            
+
     def fps(self):
         self.nTime = time.time()
         fps = 1/(self.nTime - self.pTime)
@@ -63,12 +64,11 @@ class handDetector():
 
 
 def main():
-    camera = Camera(0)
-    detector = handDetector()
-    while True:
-        img = camera.CaptureVideo()
-        detector.FindLandMark(img)
-        detector.fps()
+                      #camera index
+    detector = handDetector(0)
+    while True: 
+        # img = detector.CaptureVideo()
+        img = detector.FindLandMark() #c
         cv2.imshow("Image",img)
 
 
