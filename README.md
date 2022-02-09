@@ -4,6 +4,12 @@ To run, first install package
 ``` pip install opencv-python```
 ``` pip install mediapipe ```
 
+``` ---------------- UPDATE ------------------------------------- ```
+Just push Motion detection in PoseDetection dir
+
+
+
+
 ``` ----------------------------------------------------------------- ```
 
 What we're planning so far:
@@ -15,3 +21,4 @@ What we're planning so far:
     -  For face detection, if camera detects a resident's face, send notification to the app(can turn on/off) save it in database with timestamp, photoId, resident's name.
         -  If camera detects a stranger, send notifcation to the app, save it in the database with attributes: timestamp, photoId, img url(or something a phone can open/zoom).
 
+    
