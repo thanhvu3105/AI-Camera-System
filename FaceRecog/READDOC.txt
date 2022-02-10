@@ -1,0 +1,16 @@
+!!READ AND RESEARCH 
+How image are stored in Computer ?
+https://www.analyticsvidhya.com/blog/2021/03/grayscale-and-rgb-format-for-storing-images/
+LBPH Face Recognizer explaining. 
+https://www.pyimagesearch.com/2021/05/03/face-recognition-with-local-binary-patterns-lbps-and-opencv/
+Face Recognition fundamentals.
+https://www.pyimagesearch.com/2021/05/01/what-is-face-recognition/
+
+LBPH Face Recognizer explaining
+https://docs.opencv.org/4.x/df/d25/classcv_1_1face_1_1LBPHFaceRecognizer.html
+
+https://link.springer.com/chapter/10.1007/978-3-540-24670-1_36
+
+
+Viola-Jones algorithm 
+https://towardsdatascience.com/the-intuition-behind-facial-detection-the-viola-jones-algorithm-29d9106b6999
