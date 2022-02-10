@@ -14,3 +14,7 @@ https://link.springer.com/chapter/10.1007/978-3-540-24670-1_36
 
 Viola-Jones algorithm 
 https://towardsdatascience.com/the-intuition-behind-facial-detection-the-viola-jones-algorithm-29d9106b6999
+
+
+Principal Component Analysis, or PCA, is a dimensionality-reduction method that is often used to reduce the dimensionality of large data sets, 
+by transforming a large set of variables into a smaller one that still contains most of the information in the large set.
