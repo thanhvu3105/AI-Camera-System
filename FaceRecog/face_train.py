@@ -32,28 +32,25 @@ for root,dirs,files in os.walk(image_dir):
             #label: name dir
             #path: pwd         
             # print(label,path)
-            
-
             ###CREATING ID FOR EACH PERSON
             if not label in label_ids:
                 label_ids[label] = current_id
                 current_id += 1
             id_ = label_ids[label]
 
-            img = cv2.imread(path)
-            faces = face_cascade.detectMultiScale(img, scaleFactor=1.6,minNeighbors=6)
+            img = Image.open(path).convert('L')
+            final_img = img.resize((224,224),Image.ANTIALIAS)
+            img_np = np.array(final_img,'uint8')
+            # print(img.shape)
+            faces = face_cascade.detectMultiScale(img_np, scaleFactor=1.6,minNeighbors=3)
             
             for(x,y,w,h) in faces:
                 # print(image_array)
-                img = img[y:y+h,x:x+w] 
-                img = cv2.resize(img,(550,550))
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                x_train.append(img)
+                img_train = img_np[y:y+h,x:x+w] 
+                # img_np = cv2.resize(img,(224,224))
+                x_train.append(img_train)
                 y_labels.append(id_)
             
-
- 
-
 
 
 with open("labels.pkl",'wb') as f:

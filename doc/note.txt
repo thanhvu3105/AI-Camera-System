@@ -1,3 +1,0 @@
-multi_hand_landmarks
-Each hand will have 21 landmarks, one finger has 4, a palm will have 1. 
-Each landmark represent by x and y represnets width and height. z represets depth at the wrirst

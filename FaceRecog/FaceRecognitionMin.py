@@ -14,6 +14,7 @@ eyes_cascade = cv2.CascadeClassifier('cascades/haarcascade_eye.xml')
 cap = cv2.VideoCapture(0)
 model = cv2.face.LBPHFaceRecognizer_create()
 model.read("model.yml")
+
 labels = {"person_name" : 1}
 with open("labels.pkl", 'rb') as f:
     og_labels = pickle.load(f)
@@ -23,8 +24,8 @@ while(True):
     #Capture frame-by-frame
     ret, frame = cap.read()
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.20,minNeighbors=2)
-    eyes = eyes_cascade.detectMultiScale(gray, scaleFactor=1.20,minNeighbors=4)
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.6,minNeighbors=3)
+    eyes = eyes_cascade.detectMultiScale(gray, scaleFactor=1.6,minNeighbors=3)
 
     
     if(len(faces) > 0):
@@ -49,12 +50,10 @@ while(True):
                 #Deep learned model predict keras tensorflow
                 
                 #screen capture gray color
-                cv2.imwrite("gray-screenshot.png",roi_gray)
+                # cv2.imwrite("gray-screenshot.png",roi_gray)
                 #screen capture reg color
                 #press c to screenshot
                 # cv2.imwrite("screenshot.png", roi_color)  
-
-
                 color = (255,0,0)  #BGR 0-255
                 stroke = 2 #thick
                 end_cord_x = x + w
@@ -63,11 +62,12 @@ while(True):
 
                 idx, confidence = model.predict(roi_gray)
                 # threshold = model.getThreshold(roi_gray)
-                if(confidence <= 40):
-                    accuracy = confidence/(confidence + (100 - confidence))
-                    # print(idx, threshold)
-                    print(idx, labels[idx] , round(accuracy, 2))
-                    cv2.putText(frame,labels[idx],(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+                
+                accuracy = confidence/(confidence + (100 - confidence))
+                            # print(idx, threshold)
+                    
+                print(idx, labels[idx] , round(accuracy, 5))
+                cv2.putText(frame,labels[idx],(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),1,cv2.LINE_AA)
 
 
     #Display resulting frame
