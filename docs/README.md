@@ -1,5 +1,4 @@
-# HumanFactor_Project
-
+## House Camera System features Face Recognition and Motion Detection.
 To run, first install package 
 ``` pip install opencv-python```
 ``` pip install mediapipe ```
