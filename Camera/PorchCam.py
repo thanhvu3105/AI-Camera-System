@@ -7,23 +7,11 @@ from MotionDetectionPackage import MDOps
 
 class PorchCam(ICamera.ICamera):
     def __init__(self,index):
-        #DECREASING THE LAGNESS 
         self.camera = cv2.VideoCapture(index)
-
-    def Cap(self):
+    def Capture(self):
         success, frame = self.camera.read()
         imgRGB = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
         cv2.waitKey(1)
         return imgRGB
-    def run(self):
-        #what to do 
-        #Get CaptureVideo() -> imgRGB
-        # runMotionDetection from Motion Detection Package.
-        while True:
-            cam = self.Cap() 
-            detector = MDOps.MDOps(cam)
-            detector.runMotionDetection()
-            if(cv2.waitKey(1) == 32):
-                break
+    def __del__(self):
         self.camera.release()
-        cv2.destroyAllWindows()

@@ -6,7 +6,7 @@ import mediapipe as mp
 
 class MotionDetectionPackage():
     ##CONSTRUCTOR##
-     def __init__(self,camera,
+     def __init__(self,
         mode=False,
         model=1,
         smooth_landmarks=True,
@@ -26,7 +26,7 @@ class MotionDetectionPackage():
         self.refine_face = refine_face
         self.detection_confidence = detection_confidence
         self.tracking_confidence = tracking_confidence
-        self.camera = camera
+
         
         #declare API package
         self.mpDraw = mp.solutions.drawing_utils

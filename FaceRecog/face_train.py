@@ -10,7 +10,7 @@ import numpy as np
 #     - then you perform face casade to do face detection.
 #     - extract pixels value from it, with x,y is starting coord, w,h is ending coord
 #     - then you need to create a Region Of Interest(ROI), using formula:
-#         - ROI = image_file[y:y+h,x:x+h]
+#     -  ROI = image_file[y:y+h,x:x+h]
 
 #Return the current dir
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -43,7 +43,6 @@ for root,dirs,files in os.walk(image_dir):
             img_np = np.array(final_img,'uint8')
             # print(img.shape)
             faces = face_cascade.detectMultiScale(img_np, scaleFactor=1.6,minNeighbors=3)
-            
             for(x,y,w,h) in faces:
                 # print(image_array)
                 img_train = img_np[y:y+h,x:x+w] 
@@ -51,11 +50,11 @@ for root,dirs,files in os.walk(image_dir):
                 x_train.append(img_train)
                 y_labels.append(id_)
             
+print(x_train)
 
+# with open("labels.pkl",'wb') as f:
+#     pickle.dump(label_ids,f)
 
-with open("labels.pkl",'wb') as f:
-    pickle.dump(label_ids,f)
-
-model.train(x_train,np.array(y_labels))
-model.save("model.yml")
+# model.train(x_train,np.array(y_labels))
+# model.save("model.yml")
 

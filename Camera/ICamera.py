@@ -8,5 +8,9 @@ class ICamera():
         pass
 
     @abstractmethod
-    def Cap(self):
+    def Capture(self):
+        pass
+
+    @abstractmethod
+    def __del__(self):
         pass
