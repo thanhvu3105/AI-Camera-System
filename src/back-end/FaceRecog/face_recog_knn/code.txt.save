@@ -1,0 +1,44 @@
+nums = [1,2,3,4]
+
+
+1,2,3,4
+
+1,2,4,0,3
+
+vector<int> res(nums.size(),0);
+
+counter = 0;
+
+product = 1;
+index = 0;
+
+
+for(int i = 0; i < nums.size();i++){
+  if(nums[i] == 0){
+	index = i
+  	counter++;
+ }
+  else{
+  r	product *= nums[i];
+  }
+  if(counter > 1)
+  	return res;
+}
+
+if(counter == 1){
+   
+}
+
+
+//product: 24
+
+    0 0  0  0  0 
+   24 12 8  
+for(int i = 0; i < nums.size();i++){
+    if(nums[i] == 0)
+       res[i] = product
+    else    
+       res[i] = product / nums[i]
+}
+
+return res;

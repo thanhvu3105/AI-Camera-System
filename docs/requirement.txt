@@ -1,0 +1,6 @@
+pip install mediapipe
+pip install opencv-python
+#for face recognition
+pip install cmake
+pip install dlib
+
