@@ -4,7 +4,7 @@ from Operations import runBlankCamera, runMotionDetectionCam
 
 
 from Camera import BlankCamera, FaceRecognitionCam, MotionDetectionCam
-from MotionDetection import MDOps
+from MotionDetection import MDOps, MDOps2
 import cv2
 import os
 
@@ -53,11 +53,34 @@ def gen2(camera):
 
         # frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
 
+def gen2a(camera):
+    detector = MDOps2.MDOps()
+    while True:
+        frame = camera.Capture()
+        frame = detector.FindLandMark(frame)
+
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        now = datetime.now()
+        cv2.putText(frame,str(now.replace(microsecond=0)),(10,30), font, 1,(255,255,255),2,cv2.LINE_AA)
+
+        frameName = "Motion.jpg"
+        cv2.imwrite(frameName,frame)
+        frame = open(frameName,'rb').read()
+        yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
+@app.route('/2')
+def index2():
+    return render_template('index2.html')
+
+
+@app.route('/statistics')
+def statistics():
+    return render_template('stats.html')
 
 @app.route('/video_feed',methods=['GET'])
 def video_feed():
@@ -67,6 +90,10 @@ def video_feed():
     # camera = BlankCamera.BlankCamera(0,"Blank Camera")
     # return Response(gen(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/video_feed2',methods=['GET'])
+def video_feed2():
+    camera = MotionDetectionCam.MotionDetectionCam(1,"Porch Camera")
+    return Response(gen2a(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     app.debug = True
