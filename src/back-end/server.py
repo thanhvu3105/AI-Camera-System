@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for , Response
 from flask_bootstrap import Bootstrap
 from Operations import runBlankCamera, runMotionDetectionCam
+from FaceRecog import FaceRecogOps,face_train
 
 
 from Camera import BlankCamera, FaceRecognitionCam, MotionDetectionCam
@@ -52,6 +53,24 @@ def gen2(camera):
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
         # frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+def gen3(camera):
+    camera = FaceRecognitionCam.FaceRecognitionCam(0,"Door Camera")
+    if not os.path.isfile("FaceRecog/labels.pkl"):
+        face_train.train()
+    detector = FaceRecogOps.FaceRecogOps()
+    while True:
+        frame = camera.Capture()
+        frame = detector.recogLBHP(frame)
+        frameName = "Face.jpg"
+        cv2.imwrte(frameName,frame)
+        frame = open(frameName,'rb').read()
+        yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+        # cv2.imshow("imgage",res)
+        # if cv2.waitKey(1) == 32:
+    #         break
+    # camera.__del__()
 
 
 @app.route('/')
