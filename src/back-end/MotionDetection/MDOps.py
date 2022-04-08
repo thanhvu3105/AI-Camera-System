@@ -7,14 +7,15 @@ from datetime import datetime
 class MDOps(MotionDetectionPackage.MotionDetectionPackage):
     def __init__(self):
         super().__init__()
+        # self.detected = False
 
     def FindLandMark(self,camera):
         # img = super().Capture()
         img = cv2.cvtColor(camera,cv2.COLOR_BGR2RGB)
         result = self.holistic.process(img)
         
-       
-        
+        detected = False
+
         if(result.pose_landmarks or result.face_landmarks):
         #Draw Pose
             for id,lm in enumerate(result.pose_landmarks.landmark):
@@ -33,6 +34,10 @@ class MDOps(MotionDetectionPackage.MotionDetectionPackage):
             )
 
         return img
+        
+
+        
+      
         
     
  

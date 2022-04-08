@@ -48,27 +48,20 @@ def gen2(camera):
         frame = open(frameName, 'rb').read()
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-        # frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+   
+def gen3(camera):    
 
-
-def gen3(camera):
-    camera = FaceRecognitionCam.FaceRecognitionCam(0, "Door Camera")
-    if not os.path.isfile("FaceRecog/labels.pkl"):
-        face_train.train()
     detector = FaceRecogOps.FaceRecogOps()
     while True:
         frame = camera.Capture()
         frame = detector.recogLBHP(frame)
+        # ret,jpeg = cv2.imencode("face.jpg",frame)
         frameName = "Face.jpg"
         cv2.imwrite(frameName, frame)
         frame = open(frameName, 'rb').read()
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-        # cv2.imshow("imgage",res)
-        # if cv2.waitKey(1) == 32:
-    #         break
-    # camera.__del__()
-
+       
 
 @app.route('/')
 def index():
@@ -91,14 +84,10 @@ def video_feed():
     camera = MotionDetectionCam.MotionDetectionCam(0, "Porch Camera")
     return Response(gen2(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-    # camera = BlankCamera.BlankCamera(0,"Blank Camera")
-    # return Response(gen(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
 # For Camera 2
 @app.route('/video_feed2', methods=['GET'])
 def video_feed2():
-    camera = FaceRecognitionCam.FaceRecognitionCam(0, "Door Camera")
+    camera = FaceRecognitionCam.FaceRecognitionCam(cv2.CAP_V4L2, "Door Camera")
     return Response(gen3(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

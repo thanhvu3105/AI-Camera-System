@@ -1,4 +1,4 @@
-import sys
+import os
 import pickle
 
 
@@ -12,25 +12,28 @@ from .face_train import train
 
 class FaceRecogOps:
     def __init__(self):
+        # print(os.getcwd())
+        pathLabel = os.getcwd() + "/back-end/FaceRecog/"
+
         self.labels = {"person_name" : 1}
-        with open('labels.pkl', 'rb') as f:
+        with open(pathLabel + "labels.pkl", 'rb') as f:
             og_labels = pickle.load(f)
             self.labels = {v:k for k,v in og_labels.items()}
 
         self.model = cv2.face.LBPHFaceRecognizer_create()
-        self.model.read("model.yml")
+        self.model.read(pathLabel + "model.yml")
 
-        self.face_cascade = cv2.CascadeClassifier('FaceRecog/cascades/haarcascade_frontalface_alt2.xml')
-        self.eyes_cascade = cv2.CascadeClassifier('FaceRecog/cascades/haarcascade_eye.xml')
+        
+        self.face_cascade = cv2.CascadeClassifier(pathLabel + "cascades/haarcascade_frontalface_alt2.xml")
+        self.eyes_cascade = cv2.CascadeClassifier(pathLabel + "cascades/haarcascade_eye.xml")
+  
     def trainImages(self):
         train()
 
-    def recogLBHP(self,camera):
-        #read data from csv file
-       
 
-        # while(True):
-            
+    def recogLBHP(self,camera):
+        
+        
         gray = cv2.cvtColor(camera,cv2.COLOR_BGR2GRAY)
         faces = self.face_cascade.detectMultiScale(gray, scaleFactor=1.6,minNeighbors=3)
         eyes = self.eyes_cascade.detectMultiScale(gray, scaleFactor=1.6,minNeighbors=3)
@@ -49,9 +52,7 @@ class FaceRecogOps:
                     end_cord_x = x + w
                     end_cord_y = y + h
                     cv2.rectangle(camera,(x,y),(end_cord_x,end_cord_y), color, stroke)
-
-
-                    face_section = camera[y-10:end_cord_y+10, x-10: end_cord_x+10]              
+            
                     idx, confidence = self.model.predict(roi_gray)
                 
                     #LBPH algorithm            
@@ -63,6 +64,5 @@ class FaceRecogOps:
 
                     if(accuracy >= 1.10):
                         cv2.putText(camera,"Intruder",(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
-
-
         return camera           
+
