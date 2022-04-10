@@ -5,7 +5,7 @@ from multiprocessing import Process
 from Camera import MotionDetectionCam, ICamera, BlankCamera
 from MotionDetection import MDOps
 
-from Operations import runBlankCamera, runMotionDetectionCam, runFaceRecognitionCam
+from LocalRun import runBlankCamera, runMotionDetectionCam, runFaceRecognitionCam
 
 from flask import Flask
 
@@ -13,5 +13,6 @@ from flask import Flask
 if __name__ == '__main__':
     # runBlankCamera()
     # runMotionDetectionCam()
+    # trainImage()
     runFaceRecognitionCam()
     

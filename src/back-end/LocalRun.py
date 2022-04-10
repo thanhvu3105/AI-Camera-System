@@ -13,7 +13,7 @@ def runBlankCamera():
         cv2.imshow("Blank Camera", frame)
         if cv2.waitKey(1) == 32:
             break
-    # camera.__del__()
+    camera.__del__()
 
 
 
@@ -33,11 +33,14 @@ def runMotionDetectionCam():
     camera.__del__()
 
 
+# def trainImage():
+    # FaceRecogOps.trainImages()
+
 #DOOR CAMP TO DO FACE DETECTION
 def runFaceRecognitionCam():
     camera = FaceRecognitionCam.FaceRecognitionCam(0,"Door Camera")
-    if not os.path.isfile("FaceRecog/labels.pkl"):
-        face_train.train()
+    # if not os.path.isfile("FaceRecog/labels.pkl"):
+        # face_train.train()
     detector = FaceRecogOps.FaceRecogOps()
     while True:
         frame = camera.Capture()

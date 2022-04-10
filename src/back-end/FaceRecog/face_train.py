@@ -18,7 +18,7 @@ image_dir = os.path.join(BASE_DIR,"known_faces")
 
 def train():
 
-    face_cascade = cv2.CascadeClassifier('FaceRecog/cascades/haarcascade_frontalface_default.xml')
+    face_cascade = cv2.CascadeClassifier('cascades/haarcascade_frontalface_alt2.xml')
 
     model = cv2.face.LBPHFaceRecognizer_create()
 
@@ -41,10 +41,8 @@ def train():
                 id_ = label_ids[label]
 
                 img = Image.open(path).convert('L')
-                final_img = img.resize((224,224),Image.ANTIALIAS)
+                final_img = img.resize((140,140),Image.ANTIALIAS)
                 img_np = np.array(final_img,'uint8')
-                # print(img_np)
-                # print(img.shape)
                 faces = face_cascade.detectMultiScale(img_np, scaleFactor=1.6,minNeighbors=3)
                 
                 if len(faces) > 0:
@@ -64,3 +62,4 @@ def train():
     model.train(x_train,np.array(y_labels))
     model.save("model.yml")
 
+# train()

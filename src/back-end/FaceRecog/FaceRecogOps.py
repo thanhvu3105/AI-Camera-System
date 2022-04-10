@@ -5,6 +5,7 @@ import pickle
 import cv2
 import numpy as np
 import pandas as pd
+import time
   
 from datetime import datetime
 from .face_train import train
@@ -13,7 +14,7 @@ from .face_train import train
 class FaceRecogOps:
     def __init__(self):
         # print(os.getcwd())
-        pathLabel = os.getcwd() + "/back-end/FaceRecog/"
+        pathLabel = os.getcwd() + "/FaceRecog/"
 
         self.labels = {"person_name" : 1}
         with open(pathLabel + "labels.pkl", 'rb') as f:
@@ -32,7 +33,6 @@ class FaceRecogOps:
 
 
     def recogLBHP(self,camera):
-        
         
         gray = cv2.cvtColor(camera,cv2.COLOR_BGR2GRAY)
         faces = self.face_cascade.detectMultiScale(gray, scaleFactor=1.6,minNeighbors=3)
@@ -57,12 +57,15 @@ class FaceRecogOps:
                 
                     #LBPH algorithm            
                     accuracy = confidence/(confidence + (100 - confidence))
-                                # print(idx, threshold)
+                    
                     if(accuracy <= 1):
+                        # time.sleep(3.0)
                         print(idx, self.labels[idx], round(accuracy, 5))
                         cv2.putText(camera,self.labels[idx],(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
 
                     if(accuracy >= 1.10):
+                        # cv2.putText(camera,self.loadingMessage,(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
+                        # time.sleep(3.0)
                         cv2.putText(camera,"Intruder",(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
         return camera           
 

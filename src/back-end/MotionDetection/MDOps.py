@@ -7,6 +7,7 @@ from datetime import datetime
 class MDOps(MotionDetectionPackage.MotionDetectionPackage):
     def __init__(self):
         super().__init__()
+        self.imgNumber = 0
         # self.detected = False
 
     def FindLandMark(self,camera):
@@ -25,6 +26,8 @@ class MDOps(MotionDetectionPackage.MotionDetectionPackage):
                 print(id,cx,cy)
                 # cv2.circle(img, (cx,cy), 10,(255,0,255),cv2.FILLED)
 
+            detected = True
+            
             self.mpDraw.draw_landmarks(
                 img,
                 result.pose_landmarks,
@@ -32,7 +35,7 @@ class MDOps(MotionDetectionPackage.MotionDetectionPackage):
                 # landmark_drawing_spec=None,
                 landmark_drawing_spec= self.mp_drawing_styles.get_default_pose_landmarks_style()
             )
-
+        
         return img
         
 
