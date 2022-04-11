@@ -22,7 +22,7 @@ def genSkeleton(camera):
     detector = MDOps.MDOps()
     while True:
         frame = camera.Capture()
-        frame = detector.FindLandMark(frame)
+        ret, frame = detector.FindLandMark(frame)
 
         font = cv2.FONT_HERSHEY_SIMPLEX
         now = datetime.now()

@@ -6,7 +6,7 @@ from Camera import BlankCamera, FaceRecognitionCam, MotionDetectionCam
 from MotionDetection import MDOps
 from FaceRecog import FaceRecogOps,face_train
 from datetime import datetime
-from insertQuery import insertQuery
+# from insertQuery import insertQuery
 
 def runBlankCamera():
     camera = BlankCamera.BlankCamera(0,"Blank Camera")
@@ -42,7 +42,7 @@ def runMotionDetectionCam():
             print("Motion detected")
             counter += 1
             #insert data to query table
-            insertQuery(camera.cameraName,frame,now)
+            # insertQuery(camera.cameraName,frame,now)
            
         if ret == False:
             print("No motion detected")

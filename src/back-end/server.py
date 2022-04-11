@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, Response
 from flask_bootstrap import Bootstrap
-from Operations import runBlankCamera, runMotionDetectionCam
+# from Operations import runBlankCamera, runMotionDetectionCam
 from FaceRecog import FaceRecogOps, face_train
 
 from Camera import BlankCamera, FaceRecognitionCam, MotionDetectionCam
@@ -36,19 +36,19 @@ def statistics():
 # For Camera 1
 @app.route('/video_feed', methods=['GET'])
 def video_feed():
-    camera = MotionDetectionCam.MotionDetectionCam(0, "Porch Camera")
+    camera = MotionDetectionCam.MotionDetectionCam(-1, "Porch Camera")
     return Response(genSkeleton(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # For Camera 2
 @app.route('/video_feed2', methods=['GET'])
 def video_feed2():
-    camera = FaceRecognitionCam.FaceRecognitionCam(0, "Door Camera")
+    camera = FaceRecognitionCam.FaceRecognitionCam(-1, "Door Camera")
     return Response(genRecog(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # For Camera 3
-@app.route('/video_feed3', methods=['GET'])
-def video_feed3():
-    pass
+# @app.route('/video_feed3', methods=['GET'])
+# def video_feed3():
+    # pass
 
 if __name__ == '__main__':
     app.debug = True
