@@ -32,7 +32,7 @@ def genSkeleton(camera):
         cv2.imwrite(frameName, frame)
         frame = open(frameName, 'rb').read()
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
+    
    
 def genRecog(camera):    
     detector = FaceRecogOps.FaceRecogOps()

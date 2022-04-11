@@ -31,7 +31,7 @@ def index2():
 @app.route('/statistics')
 def statistics():
     return render_template('stats.html')
-
+    
 
 # For Camera 1
 @app.route('/video_feed', methods=['GET'])
@@ -42,7 +42,7 @@ def video_feed():
 # For Camera 2
 @app.route('/video_feed2', methods=['GET'])
 def video_feed2():
-    camera = FaceRecognitionCam.FaceRecognitionCam(cv2.CAP_V4L2, "Door Camera")
+    camera = FaceRecognitionCam.FaceRecognitionCam(0, "Door Camera")
     return Response(genRecog(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # For Camera 3

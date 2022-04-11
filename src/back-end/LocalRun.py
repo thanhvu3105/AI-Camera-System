@@ -5,6 +5,8 @@ import os.path
 from Camera import BlankCamera, FaceRecognitionCam, MotionDetectionCam
 from MotionDetection import MDOps
 from FaceRecog import FaceRecogOps,face_train
+from datetime import datetime
+from insertQuery import insertQuery
 
 def runBlankCamera():
     camera = BlankCamera.BlankCamera(0,"Blank Camera")
@@ -21,15 +23,37 @@ def runBlankCamera():
 #IF USER PICK CAM WITH MOTION DETECTION
 def runMotionDetectionCam():
     # camera = ICamera.ICamera(0)   
-    camera = MotionDetectionCam.MotionDetectionCam(0,"Porch Camera")
+    camera = MotionDetectionCam.MotionDetectionCam(-1,"Porch Camera")
     detector = MDOps.MDOps()
+    
+    counter = 0
+ 
     while True:
+        # detected = False
         frame = camera.Capture()
-        frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
-        res = detector.FindLandMark(frame)
+        font = cv2.FONT_HERSHEY_SIMPLEX
+
+        now = datetime.now()
+        
+        ret, res = detector.FindLandMark(frame)
+
+        #LOGIC FOR SENDING DATA OUT
+        if ret == True and counter == 0:
+            print("Motion detected")
+            counter += 1
+            #insert data to query table
+            insertQuery(camera.cameraName,frame,now)
+           
+        if ret == False:
+            print("No motion detected")
+            counter = 0
+            # imgCapture.clear()
+
         cv2.imshow("Image",res)
+            
         if cv2.waitKey(1) == 32:
             break
+
     camera.__del__()
 
 
@@ -45,8 +69,12 @@ def runFaceRecognitionCam():
     while True:
         frame = camera.Capture()
         res = detector.recogLBHP(frame)
+        
         cv2.imshow("imgage",res)
         if cv2.waitKey(1) == 32:
             break
     camera.__del__()
         
+
+def sendData(image,date,cameraId):
+    pass
