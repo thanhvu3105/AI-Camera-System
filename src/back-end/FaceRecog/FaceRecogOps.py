@@ -58,14 +58,15 @@ class FaceRecogOps:
                     #LBPH algorithm            
                     accuracy = confidence/(confidence + (100 - confidence))
                     
-                    if(accuracy <= 1):
+                    if(accuracy < 1):
                         # time.sleep(3.0)
                         print(idx, self.labels[idx], round(accuracy, 5))
                         cv2.putText(camera,self.labels[idx],(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
 
-                    if(accuracy >= 1.10):
+                    if(accuracy >= 1.15):
                         # cv2.putText(camera,self.loadingMessage,(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
                         # time.sleep(3.0)
+                        print(idx, "Intruder", round(accuracy, 5))
                         cv2.putText(camera,"Intruder",(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
         return camera           
 
