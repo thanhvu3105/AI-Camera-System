@@ -8,7 +8,9 @@ from ServerOps import genSkeleton, genRecog
 from MotionDetection import MDOps
 import cv2
 import os
+import sqlite3
 
+from flaskext.mysql import MySQL
 from datetime import datetime
 
 # MODE = os.getenv('FLASK_ENV')
@@ -18,9 +20,17 @@ app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
 
+# Enter your database connection details below
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, "db.sqlite")
+conn = sqlite3.connect(db_path, check_same_thread=False)
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM reports WHERE camera_id = 1')
+    reports = cursor.fetchall()
+    return render_template('index.html', reports=reports)
 
 
 @app.route('/2')
@@ -42,6 +52,7 @@ def video_feed():
     camera = MotionDetectionCam.MotionDetectionCam(0, "Porch Camera")
     return Response(genSkeleton(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+
 # For Camera 2
 @app.route('/video_feed2', methods=['GET'])
 def video_feed2():
@@ -54,6 +65,7 @@ def video_feed2():
 def video_feed3():
     camera = MotionDetectionCam.MotionDetectionCam(0, "Porch Camera")
     return Response(genSkeleton(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 if __name__ == '__main__':
     app.debug = True
