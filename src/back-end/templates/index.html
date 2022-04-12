@@ -111,21 +111,17 @@
             <h4 class="text-center">Reported Alerts</h4>
             <hr>
             <div class="list-group list-group-flush border-bottom scrollarea text-grey">
-                <table>
-                    <tr>
-                        <td>{{ reports[0] }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ reports[1] }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ reports[2] }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ reports[3] }}</td>
-                    </tr>
-                </table>
-
+                {% for i in range(0, reports|length)%}
+                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                      <strong class="mb-1">{{ reports[i][0] }}</strong>
+                      <small>{{ reports[i][2] }}</small>
+                    </div>
+                    <div class="col-10 mb-1 small">
+                        <img>{{ reports[i][1] }}</img>
+                    </div>
+                </a>
+                {% endfor %}
             </div>
         </div>
     <!-- Optional JavaScript -->

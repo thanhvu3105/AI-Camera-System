@@ -28,14 +28,17 @@ conn = sqlite3.connect(db_path, check_same_thread=False)
 @app.route('/')
 def index():
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM reports WHERE camera_id = 1')
+    cursor.execute('SELECT * FROM reportedAlerts WHERE camera_id = 1')
     reports = cursor.fetchall()
     return render_template('index.html', reports=reports)
 
 
 @app.route('/2')
 def index2():
-    return render_template('index2.html')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM reports WHERE camera_id = 2')
+    reports = cursor.fetchall()
+    return render_template('index2.html', reports=reports)
 
 @app.route('/3')
 def index3():
