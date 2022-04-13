@@ -25,7 +25,7 @@ class FaceRecogOps:
         self.model.read(pathLabel + "model.yml")
 
         
-        self.face_cascade = cv2.CascadeClassifier(pathLabel + "cascades/haarcascade_frontalface_alt2.xml")
+        self.face_cascade = cv2.CascadeClassifier(pathLabel + "cascades/haarcascade_frontalface_alt.xml")
         self.eyes_cascade = cv2.CascadeClassifier(pathLabel + "cascades/haarcascade_eye.xml")
   
     def trainImages(self):
@@ -58,15 +58,30 @@ class FaceRecogOps:
                     #LBPH algorithm            
                     accuracy = confidence/(confidence + (100 - confidence))
                     
-                    if(accuracy < 1):
+                    if(accuracy <= 1):
                         # time.sleep(3.0)
+                        print(type(self.labels[idx]))
                         print(idx, self.labels[idx], round(accuracy, 5))
                         cv2.putText(camera,self.labels[idx],(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
-
-                    if(accuracy >= 1.15):
+                        returnString = self.labels[idx]                        
+                        return True, returnString,camera
+                            
+                    elif(accuracy >= 1.4):
                         # cv2.putText(camera,self.loadingMessage,(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
                         # time.sleep(3.0)
                         print(idx, "Intruder", round(accuracy, 5))
                         cv2.putText(camera,"Intruder",(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
-        return camera           
+                        returnString = "Intruder"                        
+                        return True, returnString, camera
+                    else:
+                        returnString = "None-detected"
+                        return False, returnString, camera
+
+            else:
+                returnString = "None-detected"
+                return False, returnString, camera
+
+        else:
+            returnString = "None-detected"
+            return False,returnString,camera           
 

@@ -24,7 +24,7 @@ db_path = os.path.join(BASE_DIR, "db.sqlite")
 conn = sqlite3.connect(db_path, check_same_thread=False)
 
 cursor_setup = conn.cursor()
-cursor_setup.execute('CREATE TABLE IF NOT EXISTS reportedAlerts(camera_id integer, image blob, timestamp text)')
+cursor_setup.execute('CREATE TABLE IF NOT EXISTS reportedAlerts(camera_id integer, camera_name text, person_id text, timestamp text)')
 conn.commit()
 
 @app.route('/')
@@ -48,16 +48,12 @@ def index2():
 # def index3():
 #     return render_template('index3.html')
 
-
-@app.route('/statistics')
-def statistics():
-    return render_template('stats.html')
     
 
 # For Camera 1
 @app.route('/video_feed', methods=['GET'])
 def video_feed():
-    camera = MotionDetectionCam.MotionDetectionCam(-1, "Porch Camera")
+    camera = MotionDetectionCam.MotionDetectionCam(0, "Porch Camera")
     return Response(genSkeleton(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # For Camera 2

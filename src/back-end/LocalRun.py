@@ -68,9 +68,9 @@ def runFaceRecognitionCam():
     detector = FaceRecogOps.FaceRecogOps()
     while True:
         frame = camera.Capture()
-        res = detector.recogLBHP(frame)
+        ret,label,frame = detector.recogLBHP(frame)
         
-        cv2.imshow("imgage",res)
+        cv2.imshow("imgage",frame)
         if cv2.waitKey(1) == 32:
             break
     camera.__del__()
