@@ -1,3 +1,4 @@
+from tkinter import S
 import cv2
 import numpy as np
 import base64
@@ -9,7 +10,15 @@ from Camera import BlankCamera, FaceRecognitionCam, MotionDetectionCam
 from MotionDetection import MDOps
 
 from datetime import datetime
-from server import testdb
+
+import os   
+import sqlite3
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, "db.sqlite")
+conn = sqlite3.connect(db_path, check_same_thread=False)
+
 
 def gen(camera):
     while True:
@@ -21,6 +30,7 @@ def gen(camera):
 
 
 def genSkeleton(camera):
+    
     detector = MDOps.MDOps()
     counter = 0
     while True:
@@ -30,19 +40,23 @@ def genSkeleton(camera):
         font = cv2.FONT_HERSHEY_SIMPLEX
         now = datetime.now()
         cv2.putText(frame, str(now.replace(microsecond=0)), (10, 30), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+        cameraID = 1
+        time_cap = str(now.replace(microsecond=0))
 
         if ret == True and counter == 0:
             counter += 1
-            _,framedb = cv2.imencode(".jpg",frame)
-            framedb = base64.b64encode(framedb)
-            bufDecode = base64.b64decode(framedb)
-            nparr = np.fromstring(bufDecode, np.uint8)
-            img_np = cv2.imdecode(nparr,cv2.IMREAD_UNCHANGED)
-    
-            #this is where to send data to D
 
-            print(type(img_np))
-            print("Motion detected")
+            # _,framedb = cv2.imencode(".jpg",frame)
+            # framedb = base64.b64encode(framedb)
+            # bufDecode = base64.b64decode(framedb)
+            # nparr = np.fromstring(bufDecode, np.uint8)
+            # img_np = cv2.imdecode(nparr,cv2.IMREAD_UNCHANGED)
+
+            # cursor = conn.cursor()
+            conn.execute('INSERT INTO reportedAlerts(camera_id, image, timestamp) VALUES (?, ?, ?)', (cameraID, sqlite3.Binary(frame), time_cap,))
+            conn.commit()
+
+
         if ret == False:
             counter = 0
             print("No motion detected")
@@ -52,8 +66,6 @@ def genSkeleton(camera):
         # print(capturedTime)
         cv2.imwrite(frameName, frame)
         frame = open(frameName, 'rb').read()
-
-
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
     
    

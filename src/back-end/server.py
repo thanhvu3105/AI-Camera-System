@@ -5,15 +5,10 @@ from FaceRecog import FaceRecogOps, face_train
 from Camera import BlankCamera, FaceRecognitionCam, MotionDetectionCam
 from ServerOps import genSkeleton, genRecog
 from MotionDetection import MDOps
+
 import cv2
 import os
-
-
-from db.db import db, db_init
-
-from datetime import datetime
-
-
+import sqlite3
 
 from datetime import datetime
 
@@ -23,21 +18,30 @@ from datetime import datetime
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
+# Enter your database connection details below
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, "db.sqlite")
+conn = sqlite3.connect(db_path, check_same_thread=False)
 
-db_name = "imagesData.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_name
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-db_init(app)
-
+cursor_setup = conn.cursor()
+cursor_setup.execute('CREATE TABLE IF NOT EXISTS reportedAlerts(camera_id integer, image blob, timestamp text)')
+conn.commit()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM reportedAlerts WHERE camera_id = 1')
+    reports = cursor.fetchall()
+    return render_template('index.html', reports=reports)
+
 
 
 @app.route('/2')
 def index2():
-    return render_template('index2.html')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM reportedAlerts WHERE camera_id = 2')
+    reports = cursor.fetchall()
+    return render_template('index2.html', reports=reports)
 
 
 # @app.route('/3')
@@ -64,12 +68,9 @@ def video_feed2():
 
 
 #testing database
-@app.route('/upload', methods=['POST'])
-def testdb():
+# @app.route('/upload', methods=['POST'])
+# def testdb():
     
-
-
-
 
 # For Camera 3
 # @app.route('/video_feed3', methods=['GET'])
