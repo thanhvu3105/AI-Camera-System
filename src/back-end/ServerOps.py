@@ -41,6 +41,7 @@ def genSkeleton(camera):
         now = datetime.now()
         cv2.putText(frame, str(now.replace(microsecond=0)), (10, 30), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
         cameraID = 1
+        camera_name = camera.cameraName
         time_cap = str(now.replace(microsecond=0))
 
         if ret == True and counter == 0:
@@ -53,9 +54,8 @@ def genSkeleton(camera):
             # img_np = cv2.imdecode(nparr,cv2.IMREAD_UNCHANGED)
 
             # cursor = conn.cursor()
-            conn.execute('INSERT INTO reportedAlerts(camera_id, image, timestamp) VALUES (?, ?, ?)', (cameraID, sqlite3.Binary(frame), time_cap,))
+            conn.execute('INSERT INTO reportedAlerts(camera_id, camera_name, person_id, timestamp) VALUES (?, ?, null, ?)', (cameraID, camera_name, time_cap,))
             conn.commit()
-            print("image captured")
 
 
         if ret == False:

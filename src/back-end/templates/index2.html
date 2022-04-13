@@ -72,15 +72,6 @@
         </ul>
         <hr>
         <div class="dropdown">
-            <h4>Features</h4>
-            <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="{{ url_for('statistics') }}" class="nav-link link-dark">
-              Statistics
-            </a>
-          </li>
-            </ul>
-            <hr>
           <div href="#" class="d-flex align-items-center text-decoration-none link-dark">
             <img src="./static/assets/images/profile-pic.png" alt="" width="32" height="32" class="rounded-circle me-2">
             <h5 class="text-grey fw-bold">User</h5>
@@ -103,178 +94,21 @@
             </div>
           </div>
 
-        <div class="d-flex flex-column align-items-stretch border bg-light fill" style="width: 380px;">
+        <div class="d-flex flex-column align-items-stretch border bg-light" style="width: 380px;">
             <h4 class="text-center">Reported Alerts</h4>
             <hr>
             <div class="list-group list-group-flush border-bottom scrollarea text-grey">
+                {% for i in range(0, reports|length)%}
                 <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
                     <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
+                      <strong class="mb-1">{{ reports[i][1] }}</strong>
+                      <small>{{ reports[i][3] }}</small>
                     </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
+                    <div class="col-10 mb-1 small">
+                        <img>{{ reports[i][2] }}</img>
                     </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action border py-3 lh-tight" aria-current="true">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                      <strong class="mb-1">Report</strong>
-                      <small>Wed</small>
-                    </div>
-                    <div class="col-10 mb-1 small">Here is the new report...</div>
-                </a>
+                {% endfor %}
             </div>
         </div>
     <!-- Optional JavaScript -->
