@@ -55,6 +55,7 @@ def genSkeleton(camera):
             # cursor = conn.cursor()
             conn.execute('INSERT INTO reportedAlerts(camera_id, image, timestamp) VALUES (?, ?, ?)', (cameraID, sqlite3.Binary(frame), time_cap,))
             conn.commit()
+            print("image captured")
 
 
         if ret == False:
