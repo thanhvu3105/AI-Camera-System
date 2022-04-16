@@ -41,7 +41,7 @@ def train():
                 id_ = label_ids[label]
 
                 img = Image.open(path).convert('L')
-                final_img = img.resize((140,140),Image.ANTIALIAS)
+                final_img = img.resize((224,224),Image.ANTIALIAS)
                 img_np = np.array(final_img,'uint8')
                 faces = face_cascade.detectMultiScale(img_np, scaleFactor=1.6,minNeighbors=3)
                 

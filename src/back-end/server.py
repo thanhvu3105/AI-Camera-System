@@ -59,7 +59,7 @@ def video_feed():
 # For Camera 2
 @app.route('/video_feed2', methods=['GET'])
 def video_feed2():
-    camera = FaceRecognitionCam.FaceRecognitionCam(0, "Door Camera")
+    camera = FaceRecognitionCam.FaceRecognitionCam(-1, "Door Camera")
     return Response(genRecog(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

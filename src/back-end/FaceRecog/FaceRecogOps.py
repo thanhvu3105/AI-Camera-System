@@ -25,7 +25,7 @@ class FaceRecogOps:
         self.model.read(pathLabel + "model.yml")
 
         
-        self.face_cascade = cv2.CascadeClassifier(pathLabel + "cascades/haarcascade_frontalface_alt.xml")
+        self.face_cascade = cv2.CascadeClassifier(pathLabel + "cascades/haarcascade_frontalface_alt2.xml")
         self.eyes_cascade = cv2.CascadeClassifier(pathLabel + "cascades/haarcascade_eye.xml")
   
     def trainImages(self):
@@ -66,7 +66,7 @@ class FaceRecogOps:
                         returnString = self.labels[idx]                        
                         return True, returnString,camera
                             
-                    elif(accuracy >= 1.4):
+                    elif(accuracy >= 1.50):
                         # cv2.putText(camera,self.loadingMessage,(x,y),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),1,cv2.LINE_AA)
                         # time.sleep(3.0)
                         print(idx, "Intruder", round(accuracy, 5))
