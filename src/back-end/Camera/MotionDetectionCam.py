@@ -5,6 +5,7 @@ import os
 from Camera import ICamera
 from MotionDetection import MDOps
 
+#motion detection camera
 class MotionDetectionCam(ICamera.ICamera):
     def __init__(self,index,cameraName):
         super().__init__(index,cameraName)
