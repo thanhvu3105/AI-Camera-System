@@ -28,7 +28,7 @@ X, Y = data[:, 1:-1], data[:, -1]
 print(len(X),len(Y),X,Y)
     
     # # Knn function calling with k = 5
-model = KNeighborsClassifier(n_neighbors = 5)
+model = KNeighborsClassifier(n_neighbors = 9)
     
     # # fdtraining of model
 model.fit(X, Y)
@@ -42,10 +42,10 @@ for root,dirs,files in os.walk(image_dir):
             gray_face = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             X_test = []
 
-            faces = face_cascade.detectMultiScale(gray_face, scaleFactor=1.5,minNeighbors=3)
+            faces = face_cascade.detectMultiScale(gray_face, scaleFactor=1.7,minNeighbors=3)
             for (x,y,w,h) in faces:
                 roi_face = gray_face[y:y + h, x:x + w]
-                roi_face = cv2.resize(roi_face, (140, 140))
+                roi_face = cv2.resize(roi_face, (224, 224))
                 X_test.append(roi_face.reshape(-1))
     
             if len(faces) == 1:

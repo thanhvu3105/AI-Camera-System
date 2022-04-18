@@ -44,11 +44,6 @@ def index2():
     return render_template('index2.html', reports=reports)
 
 
-# @app.route('/3')
-# def index3():
-#     return render_template('index3.html')
-
-    
 
 # For Camera 1
 @app.route('/video_feed', methods=['GET'])

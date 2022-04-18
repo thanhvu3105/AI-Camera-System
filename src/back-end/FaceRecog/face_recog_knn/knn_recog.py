@@ -22,7 +22,7 @@ def knn_recog():
     print(len(X),len(Y),X,Y)
     
     # # Knn function calling with k = 5
-    model = KNeighborsClassifier(n_neighbors = 5)
+    model = KNeighborsClassifier(n_neighbors = 9)
     
     # # fdtraining of model
     model.fit(X, Y)
@@ -36,7 +36,7 @@ def knn_recog():
     while True:
         ret, frame = cap.read()
         gray_face = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = face_cascades.detectMultiScale(gray_face, 1.5, 3)
+        faces = face_cascades.detectMultiScale(gray_face, 1.7, 3)
         X_test = []
         font = cv2.FONT_HERSHEY_SIMPLEX
         now = datetime.now()
@@ -45,7 +45,7 @@ def knn_recog():
         # Testing data
         for (x,y,w,h) in faces:
             roi_face = gray_face[y:y + h, x:x + w]
-            roi_face = cv2.resize(roi_face, (150, 150))
+            roi_face = cv2.resize(roi_face, (224, 224))
             X_test.append(roi_face.reshape(-1))
     
         if len(faces) == 1:
