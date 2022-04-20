@@ -27,13 +27,13 @@ cursor_setup = conn.cursor()
 cursor_setup.execute('CREATE TABLE IF NOT EXISTS reportedAlerts(camera_id integer, camera_name text, person_id text, timestamp text)')
 conn.commit()
 
+#Default pages
 @app.route('/')
 def index():
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM reportedAlerts WHERE camera_id = 1')
     reports = cursor.fetchall()
     return render_template('index.html', reports=reports)
-
 
 
 @app.route('/2')
@@ -57,17 +57,7 @@ def video_feed2():
     camera = FaceRecognitionCam.FaceRecognitionCam(-1, "Door Camera")
     return Response(genRecog(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
-#testing database
-# @app.route('/upload', methods=['POST'])
-# def testdb():
-    
-
-# For Camera 3
-# @app.route('/video_feed3', methods=['GET'])
-# def video_feed3():
-    # pass
-
+#Run the host server
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=5000, threaded=True, use_reloader=False)
